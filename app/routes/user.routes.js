@@ -5,7 +5,7 @@ module.exports = (app) => {
 
   // Create a new User
   router.post("/", user.create);
-  router.get("/", user.getUser);
+  router.get("/:mobile", user.getUser);
 
   app.use("/api/user", router);
 };

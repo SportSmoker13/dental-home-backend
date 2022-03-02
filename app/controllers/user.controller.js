@@ -28,7 +28,8 @@ exports.create = (req, res) => {
     mobile: req.body.mobile,
     address: req.body.address,
     gender: req.body.gender,
-  });
+    otp:req.body.otp
+   });
 
   // Save User in the database
   User.create(user, (err, data) => {
@@ -59,7 +60,7 @@ exports.create = (req, res) => {
 
 exports.getUser = (req, res) => {
 
-  ema("sportsmoker13@gmail.com",new Date(2022, 0, 28, 14, 13, 0))
+  // ema("sportsmoker13@gmail.com",new Date(2022, 0, 28, 14, 13, 0))
 
   if (!req.body) {
     res.status(400).send({
@@ -69,22 +70,28 @@ exports.getUser = (req, res) => {
 
   sql.query(
     "SELECT * FROM users WHERE mobile = ?",
-    [req.body.mobile],
+    [req.params['mobile']],
     (err, data) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);
         return;
       } else {
+        
         const resultArray = Object.values(JSON.parse(JSON.stringify(data)));
-        return res.send({
-          id: resultArray[0].id,
-          name: resultArray[0].name,
-          address: resultArray[0].address,
-          gender: resultArray[0].gender,
-          mobile: resultArray[0].mobile,
-          email: resultArray[0].email,
-        });
+        console.log(data)
+        return res.send(
+          resultArray
+
+        //   {
+        //   id: resultArray[0].id,
+        //   name: resultArray[0].name,
+        //   address: resultArray[0].address,
+        //   gender: resultArray[0].gender,
+        //   mobile: resultArray[0].mobile,
+        //   email: resultArray[0].email
+        // }
+        );
       }
     }
   );
