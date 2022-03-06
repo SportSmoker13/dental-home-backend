@@ -4,14 +4,14 @@ const User = function (user) {
   this.name = user.name;
   this.email = user.email;
   this.mobile = user.mobile;
-  this.address = user.address;
-  this.gender = user.gender;
-  this.otp = user.otp;
+  // this.address = user.address;
+  // this.gender = user.gender;
+  // this.otp = user.otp;
 };
 
 User.create = (newUser, result) => {
   sql.query(
-    "SELECT * FROM users WHERE mobile = ?",
+    "SELECT * FROM user WHERE mobile = ?",
     [newUser.mobile],
     (err, res) => {
       if (err) {
@@ -21,7 +21,7 @@ User.create = (newUser, result) => {
       }
       const resultArray = Object.values(JSON.parse(JSON.stringify(res)));
       if (resultArray.length == 0) {
-        sql.query("INSERT INTO users SET ?", newUser, (err, resu) => {
+        sql.query("INSERT INTO user SET ?", newUser, (err, resu) => {
           if (err) {
             console.log("error: ", err);
             result(err, null);
