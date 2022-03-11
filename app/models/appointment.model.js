@@ -95,7 +95,7 @@ const Appointment = function (user) {
   this.date = user.date;
   this.time = user.time;
   this.status = "scheduled";
-  this.type = req.body.type;
+  this.type = user.type;
 };
 
 Appointment.create = (newAppointment, result) => {
