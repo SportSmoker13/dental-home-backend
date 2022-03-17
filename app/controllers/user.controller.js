@@ -148,6 +148,47 @@ exports.putUser = (req, res) => {
     }
   );
 };
+exports.putMemberUser = (req, res) => {
+  // ema("sportsmoker13@gmail.com",new Date(2022, 0, 28, 14, 13, 0))
+
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!",
+    });
+  }
+
+  sql.query(
+    "UPDATE `user` SET `member1`=?,`member2`=?,`member3`=? where `mobile`=?",
+    [req.body["member1"],req.body["member2"],req.body["member3"], req.body["mobile"]],
+    (err, data) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      } else {
+        sql.query(
+          "SELECT * FROM user WHERE mobile = ?",
+          req.body["mobile"],
+          (err, data) => {
+            if (err) {
+              console.log("error: ", err);
+              result(null, err);
+              return;
+            } else {
+              const resultArray = Object.values(
+                JSON.parse(JSON.stringify(data))
+              );
+              console.log(data);
+              res.send(resultArray);
+            }
+          }
+        );
+
+        return;
+      }
+    }
+  );
+};
 exports.putUserAddress = (req, res) => {
   // ema("sportsmoker13@gmail.com",new Date(2022, 0, 28, 14, 13, 0))
 
