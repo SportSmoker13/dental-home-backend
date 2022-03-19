@@ -8,6 +8,7 @@ module.exports = (app) => {
     router.get("/admin/:dentist_name", appointment.getAdminAppointment);
     router.get("/user/:user_id", appointment.getUserAppointment);
     router.put("/", appointment.putAppointment);
+    router.put("/update", appointment.putUserAppointment);
 
     
     app.use("/api/appointment", router);

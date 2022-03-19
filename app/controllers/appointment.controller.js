@@ -90,8 +90,31 @@ exports.putAppointment = (req, res) => {
   }
 
   sql.query(
-    "UPDATE `appointments` SET `link`=? where `id`=?",
+    "UPDATE `appointments` SET `link`=?,`status`='ongoing' where `id`=?",
     [req.body["link"], req.body["id"]],
+    (err, data) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      } else {
+res.send("success")
+        return;
+      }
+    }
+  );
+};
+exports.putUserAppointment = (req, res) => {
+
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!",
+    });
+  }
+
+  sql.query(
+    "UPDATE `appointments` SET `status`='completed' where `id`=?",
+    [req.body["id"]],
     (err, data) => {
       if (err) {
         console.log("error: ", err);
