@@ -26,6 +26,8 @@ require("./app/routes/user.routes.js")(app);
 require("./app/routes/otp.routes.js")(app);
 require("./app/routes/video.routes.js")(app);
 require("./app/routes/appointment.routes.js")(app);
+require("./app/routes/razorPay.routes.js")(app);
+require("./app/routes/service.routes.js")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
