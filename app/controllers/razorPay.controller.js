@@ -73,12 +73,12 @@ exports.putMemberPackage = (req, res) => {
     if (razorId !== null) {
       if (amount === 4999) {
         sql.query(
-          "UPDATE `user` SET `subscriptionType`='individual',`subscriber`='1' where `id`=?",
+          "UPDATE `user` SET `subscriptionType`='individual',`subscriber`=1 where `id`=?",
           [req.body["id"]],
-          (data, err) => {
+          (err, data) => {
             if (err) {
               console.log("error: ", err);
-              result(null, err);
+              res.status(404).send(null, err);
               return;
             } else {
               //   sql.query(
@@ -110,7 +110,7 @@ exports.putMemberPackage = (req, res) => {
           (err, data) => {
             if (err) {
               console.log("error: ", err);
-              result(null, err);
+              res.status(404).send(null, err);
               return;
             } else {
               const resultArray = Object.values(
