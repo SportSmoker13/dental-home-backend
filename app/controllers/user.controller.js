@@ -131,6 +131,50 @@ exports.getUser = (req, res) => {
   );
 };
 
+exports.getGoogleUser = (req, res) => {
+  // ema("sportsmoker13@gmail.com",new Date(2022, 0, 28, 14, 13, 0))
+
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!",
+    });
+  }
+
+  sql.query(
+    "SELECT * FROM user WHERE email = ?",
+    [req.params["email"]],
+    (err, data) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      } else {
+        const resultArray = Object.values(JSON.parse(JSON.stringify(data)));
+        if (resultArray.length !== 0) {
+          return res.send(resultArray);
+        } else {
+
+          const user = new User({
+            name: req.params.name,
+            email: req.params.mobile,
+            mobile: "",
+          });
+          User.create(user, (err, data) => {
+            if (err)
+              res.status(500).send({
+                message:
+                  err.message || "Some error occurred while creating the User.",
+              });
+            else {
+              res.send(data);
+            }
+          });
+        }
+      }
+    }
+  );
+};
+
 exports.getIdUser = (req, res) => {
   // ema("sportsmoker13@gmail.com",new Date(2022, 0, 28, 14, 13, 0))
 
